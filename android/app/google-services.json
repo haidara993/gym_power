@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1025156975129",
+    "project_id": "power-gym-afd99",
+    "storage_bucket": "power-gym-afd99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025156975129:android:9e4c2a5f75449b7a60b888",
+        "android_client_info": {
+          "package_name": "com.hedorasoft.power_gym"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025156975129-3fsciv70utfq9u6sgsmnpcom6iv35cpj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hedorasoft.power_gym",
+            "certificate_hash": "3f9302d9e579aec7d543ac091ee8c2ea5fd7df24"
+          }
+        },
+        {
+          "client_id": "1025156975129-oqks9ig53bfn4m84ttgh8hnmlcnj851v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUgWcTHu4OtEbevuJEzcJ0dxgmtAAPJMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025156975129-oqks9ig53bfn4m84ttgh8hnmlcnj851v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
