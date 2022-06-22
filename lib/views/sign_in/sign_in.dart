@@ -75,28 +75,29 @@ class SignInPage extends GetWidget<AuthViewModel> {
         children: [
           FitnessTextField(
             title: TextConstants.email,
-            textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
-            placeholder: TextConstants.emailPlaceholder,
+            hintText: TextConstants.emailPlaceholder,
             controller: controller.emailController,
-            errorText: TextConstants.emailErrorText,
-            // isError: state is ShowErrorState ? !ValidationService.email(bloc.emailController.text) : false,
-            onTextChanged: () {
-              controller.email = controller.emailController.text;
+            onSavedFn: (newValue) {
+              controller.email = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.emailErrorText;
             },
           ),
           const SizedBox(height: 20),
           FitnessTextField(
             title: TextConstants.password,
-            placeholder: TextConstants.passwordPlaceholderSignIn,
+            hintText: TextConstants.passwordPlaceholderSignIn,
             controller: controller.passwordController,
-            errorText: TextConstants.passwordErrorText,
-            // isError: state is ShowErrorState
-            //     ? !ValidationService.password(bloc.passwordController.text)
-            //     : false,
             obscureText: true,
-            onTextChanged: () {
-              controller.password = controller.passwordController.text;
+            onSavedFn: (newValue) {
+              controller.password = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.passwordErrorText;
             },
           ),
         ],
@@ -131,8 +132,10 @@ class SignInPage extends GetWidget<AuthViewModel> {
       //     : false,
       onTap: () {
         FocusScope.of(context).unfocus();
-        // bloc.add(SignInTappedEvent());
-        controller.signinwithEmailAndPassword();
+        _formKey.currentState?.save();
+        if (_formKey.currentState!.validate()) {
+          controller.signinwithEmailAndPassword();
+        }
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:gym_power/core/const/color_constant.dart';
 import 'package:gym_power/core/const/path_constants.dart';
 import 'package:gym_power/core/data/workout_data.dart';
@@ -34,7 +35,7 @@ class WorkoutDetailsBody extends StatelessWidget {
             ),
           ),
           onTap: () {
-            // bloc.add(BackTappedEvent());
+            Get.back();
           },
         ),
       ),

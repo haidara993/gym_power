@@ -77,53 +77,55 @@ class SignUpPage extends GetWidget<AuthViewModel> {
           FitnessTextField(
             title: TextConstants.username,
             controller: controller.userNameController,
-            placeholder: TextConstants.userNamePlaceholder,
-            textInputAction: TextInputAction.next,
-            errorText: TextConstants.usernameErrorText,
-            onTextChanged: () {
-              controller.username = controller.userNameController.text;
+            hintText: TextConstants.userNamePlaceholder,
+            onSavedFn: (newValue) {
+              controller.username = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.usernameErrorText;
             },
           ),
           const SizedBox(height: 20),
           FitnessTextField(
             title: TextConstants.email,
             controller: controller.emailController,
-            placeholder: TextConstants.emailPlaceholder,
-            textInputAction: TextInputAction.next,
+            hintText: TextConstants.emailPlaceholder,
             keyboardType: TextInputType.emailAddress,
-            errorText: TextConstants.emailErrorText,
-            onTextChanged: () {
-              controller.email = controller.emailController.text;
+            onSavedFn: (newValue) {
+              controller.email = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.emailErrorText;
             },
           ),
           const SizedBox(height: 20),
           FitnessTextField(
             title: TextConstants.password,
-            placeholder: TextConstants.passwordPlaceholder,
+            hintText: TextConstants.passwordPlaceholder,
             obscureText: true,
-            // isError: state is ShowErrorState ? !ValidationService.password(bloc.passwordController.text) : false,
-            textInputAction: TextInputAction.next,
             controller: controller.passwordController,
-            errorText: TextConstants.passwordErrorText,
-            onTextChanged: () {
-              controller.password = controller.passwordController.text;
+            onSavedFn: (newValue) {
+              controller.password = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.passwordErrorText;
             },
           ),
           const SizedBox(height: 20),
           FitnessTextField(
             title: TextConstants.confirmPassword,
-            placeholder: TextConstants.confirmPasswordPlaceholder,
+            hintText: TextConstants.confirmPasswordPlaceholder,
             obscureText: true,
-            // isError: state is ShowErrorState
-            //     ? !ValidationService.confirmPassword(
-            //         bloc.passwordController.text,
-            //         bloc.confirmPasswordController.text)
-            //     : false,
             controller: controller.confirmPasswordController,
-            errorText: TextConstants.confirmPasswordErrorText,
-            onTextChanged: () {
-              controller.confirmPassword =
-                  controller.confirmPasswordController.text;
+            onSavedFn: (newValue) {
+              controller.confirmPassword = newValue;
+            },
+            validatorFn: (value) {
+              if (value!.isEmpty || value.length < 4)
+                return TextConstants.confirmPasswordErrorText;
             },
           ),
         ],

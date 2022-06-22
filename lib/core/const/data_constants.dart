@@ -101,7 +101,7 @@ class DataConstants {
         title: TextConstants.fullBodyTitle,
         exercises: TextConstants.fullBodyExercises,
         minutes: TextConstants.fullBodyMinutes,
-        currentProgress: 12,
+        currentProgress: 5,
         progress: 14,
         image: PathConstants.fullBody,
         exerciseDataList: [

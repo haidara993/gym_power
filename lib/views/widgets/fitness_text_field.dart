@@ -5,25 +5,23 @@ import 'package:gym_power/core/const/path_constants.dart';
 
 class FitnessTextField extends StatefulWidget {
   final String title;
-  final String placeholder;
-  final String errorText;
-  final bool obscureText;
-  final bool isError;
+  final String hintText;
+  final String? Function(String?) validatorFn;
+  final Function(String?) onSavedFn;
+  final String initialValue;
   final TextEditingController controller;
-  final VoidCallback onTextChanged;
-  final TextInputAction textInputAction;
   final TextInputType? keyboardType;
+  final bool obscureText;
 
   const FitnessTextField({
     required this.title,
-    required this.placeholder,
-    this.obscureText = false,
-    this.isError = false,
+    required this.hintText,
     required this.controller,
-    required this.onTextChanged,
-    required this.errorText,
-    this.textInputAction = TextInputAction.done,
+    required this.validatorFn,
+    required this.onSavedFn,
+    this.initialValue = '',
     this.keyboardType,
+    this.obscureText = false,
     Key? key,
   }) : super(key: key);
 
@@ -34,7 +32,6 @@ class FitnessTextField extends StatefulWidget {
 class _FitnessTextFieldState extends State<FitnessTextField> {
   final focusNode = FocusNode();
   bool stateObscureText = false;
-  bool stateIsError = false;
 
   @override
   void initState() {
@@ -43,23 +40,12 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
     focusNode.addListener(
       () {
         setState(() {
-          if (focusNode.hasFocus) {
-            stateIsError = false;
-          }
+          if (focusNode.hasFocus) {}
         });
       },
     );
 
     stateObscureText = widget.obscureText;
-    stateIsError = widget.isError;
-  }
-
-  @override
-  void didUpdateWidget(covariant FitnessTextField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    stateObscureText = widget.obscureText;
-    stateIsError = focusNode.hasFocus ? false : widget.isError;
   }
 
   @override
@@ -73,9 +59,6 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
           _createHeader(),
           const SizedBox(height: 5),
           _createTextFieldStack(),
-          if (stateIsError) ...[
-            _createError(),
-          ],
         ],
       ),
     );
@@ -85,22 +68,11 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
     return Text(
       widget.title,
       style: TextStyle(
-        color: _getUserNameColor(),
+        color: ColorConstants.primaryColor,
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
     );
-  }
-
-  Color _getUserNameColor() {
-    if (focusNode.hasFocus) {
-      return ColorConstants.primaryColor;
-    } else if (stateIsError) {
-      return ColorConstants.errorColor;
-    } else if (widget.controller.text.isNotEmpty) {
-      return ColorConstants.textBlack;
-    }
-    return ColorConstants.grey;
   }
 
   Widget _createTextFieldStack() {
@@ -122,10 +94,11 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
   Widget _createTextField() {
     return TextFormField(
       focusNode: focusNode,
-      obscureText: stateObscureText,
-      controller: widget.controller,
-      textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
+      obscureText: widget.obscureText,
+      initialValue: widget.initialValue,
+      validator: widget.validatorFn,
+      onSaved: widget.onSavedFn,
       style: TextStyle(
         color: ColorConstants.textBlack,
         fontSize: 16,
@@ -134,9 +107,7 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(
-            color: stateIsError
-                ? ColorConstants.errorColor
-                : ColorConstants.textFieldBorder.withOpacity(0.4),
+            color: ColorConstants.textFieldBorder.withOpacity(0.4),
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -145,7 +116,7 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
             color: ColorConstants.primaryColor,
           ),
         ),
-        hintText: widget.placeholder,
+        hintText: widget.hintText,
         hintStyle: TextStyle(
           color: ColorConstants.grey,
           fontSize: 16,
@@ -153,9 +124,6 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
         filled: true,
         fillColor: ColorConstants.textFieldBackground,
       ),
-      onSaved: (value) {
-        widget.onTextChanged();
-      },
     );
   }
 
@@ -167,25 +135,10 @@ class _FitnessTextFieldState extends State<FitnessTextField> {
         });
       },
       child: Image(
-        image: AssetImage(
-          PathConstants.eye,
-        ),
+        image: AssetImage('assets/images/eye_icon.png'),
         color: widget.controller.text.isNotEmpty
             ? ColorConstants.primaryColor
             : ColorConstants.grey,
-      ),
-    );
-  }
-
-  Widget _createError() {
-    return Container(
-      padding: const EdgeInsets.only(top: 2),
-      child: Text(
-        widget.errorText,
-        style: TextStyle(
-          fontSize: 14,
-          color: ColorConstants.errorColor,
-        ),
       ),
     );
   }

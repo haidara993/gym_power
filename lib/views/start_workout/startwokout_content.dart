@@ -7,6 +7,7 @@ import 'package:gym_power/core/const/text_constants.dart';
 import 'package:gym_power/core/data/exercise_data.dart';
 import 'package:gym_power/core/data/workout_data.dart';
 import 'package:gym_power/core/services/data_service.dart';
+import 'package:gym_power/views/start_workout/start_workout_page.dart';
 import 'package:gym_power/views/start_workout/start_workout_video.dart';
 import 'package:gym_power/views/widgets/fitness_button.dart';
 
@@ -68,7 +69,7 @@ class StartWorkoutContent extends GetWidget<WorkoutViewModel> {
           ],
         ),
         onTap: () {
-          // bloc.add(BackTappedEvent());
+          Get.back();
         },
       ),
     );
@@ -182,6 +183,12 @@ class StartWorkoutContent extends GetWidget<WorkoutViewModel> {
             //   isReplace: true,
             // )
             // );
+            Get.to(
+              () => StartWorkoutPage(
+                  exercise: exercisesList[currentExerciseIndex + 1],
+                  currentExercise: exercisesList[currentExerciseIndex + 1],
+                  nextExercise: nextExercise),
+            );
           }
         } else {
           await _saveWorkout(controller.workout.exerciseDataList!.length - 1);

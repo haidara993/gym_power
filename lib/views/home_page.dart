@@ -7,10 +7,10 @@ import 'package:gym_power/core/const/color_constant.dart';
 import 'package:gym_power/core/const/data_constants.dart';
 import 'package:gym_power/core/const/path_constants.dart';
 import 'package:gym_power/core/const/text_constants.dart';
+import 'package:gym_power/views/homescreens/home_exercises_card.dart';
 import 'package:gym_power/views/homescreens/home_statistics.dart';
 import 'package:gym_power/views/widgets/fitness_button.dart';
 import 'package:gym_power/views/workout_details/workout_details.dart';
-import 'package:gym_power/views/workouts/workout_card.dart';
 
 class HomePage extends GetWidget<HomeViewModel> {
   const HomePage({Key? key}) : super(key: key);
@@ -175,25 +175,28 @@ class HomePage extends GetWidget<HomeViewModel> {
             scrollDirection: Axis.horizontal,
             children: [
               const SizedBox(width: 20),
-              // WorkoutCard(
-              //   // color: ColorConstants.cardioColor,
-              //   workout: DataConstants.workouts[0],
-              //   // onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              //   //     builder: (_) => WorkoutDetails(
-              //   //         workout: DataConstants.workouts[0]),),),
-              // ),
+              WorkoutCard(
+                color: ColorConstants.cardioColor,
+                workout: DataConstants.workouts[0],
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        WorkoutDetails(workout: DataConstants.workouts[0]),
+                  ),
+                ),
+              ),
               const SizedBox(width: 15),
-              // WorkoutCard(
-              //   // color: ColorConstants.armsColor,
-              //   workout: DataConstants.workouts[2],
-              //   // onTap: () => Navigator.of(context).push(
-              //   //   MaterialPageRoute(
-              //   //     builder: (_) => WorkoutDetails(
-              //   //       workout: DataConstants.workouts[2],
-              //   //     ),
-              //   //   ),
-              //   // ),
-              // ),
+              WorkoutCard(
+                color: ColorConstants.armsColor,
+                workout: DataConstants.workouts[2],
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => WorkoutDetails(
+                      workout: DataConstants.workouts[2],
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(width: 20),
             ],
           ),
